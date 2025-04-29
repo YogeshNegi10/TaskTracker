@@ -159,7 +159,7 @@ const Navbaar = () => {
                 onClick={() => setShowTopUpModal(true)}
                 className="ml-2 cursor-pointer bg-blue-500 hover:bg-blue-600 text-white text-xs px-2 py-1 rounded"
               >
-                {istopping ? "Topping UP..." : "Top-Up"}
+               Top-Up
               </button>
             </div>
           )}
