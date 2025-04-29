@@ -16,7 +16,6 @@ const Projects = () => {
   const [currentTask, setCurrentTask] = useState(null);
   const {
     refresh,
-    setRefresh,
     Authenticated,
     setLoading,
     loading,
@@ -124,6 +123,7 @@ const Projects = () => {
 
   const handleDeleteTask = async (taskId) => {
     try {
+
       await axios.delete(
         `${server}/api/v1/task/delete-task/${taskId}`,
         { withCredentials: true }

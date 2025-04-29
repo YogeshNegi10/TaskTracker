@@ -24,7 +24,8 @@ const AppWrapper = () => {
         error,
         setError,
         setRefresh,
-        refresh
+        refresh,
+       
       }}
     >
       <App />

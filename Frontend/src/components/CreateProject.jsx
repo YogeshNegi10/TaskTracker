@@ -3,11 +3,15 @@ import { server } from "../../utils/api";
 import toast from "react-hot-toast";
 
 import axios from "axios";
+import { UserContext } from "../main";
+
 
 const CreateProject = ({ setProjects }) => {
   const [creating, setCreating] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
+
+const {setUser} = useContext(UserContext)
 
   const handleCreateProject = async () => {
     if (!projectName.trim() || !projectDescription.trim()) {
@@ -24,14 +28,16 @@ const CreateProject = ({ setProjects }) => {
         { withCredentials: true }
       );
 
+   
       toast.success(data.message || "Project created successfully!");
-
-     
+    
+      if (data.credits !== undefined) {
+        setUser((prevUser) => ({ ...prevUser, credits: data.credits }));
+      }
+      setProjects((prevProjects) => [...prevProjects, data.project,]);
       setProjectName("");
       setProjectDescription("");
-
-
-      setProjects((prevProjects) => [...prevProjects, data.project]);
+     
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Failed to create project");

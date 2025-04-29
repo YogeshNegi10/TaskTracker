@@ -42,6 +42,7 @@ export const createProject = async (req, res) => {
     res.status(201).json({
       success: true,
       project,
+      credits:user.credits
     });
   
 
@@ -51,6 +52,7 @@ export const createProject = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Server Error",
+      
     });
   }
 };

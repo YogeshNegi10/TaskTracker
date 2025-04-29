@@ -9,7 +9,7 @@ import TopUpModal from "./TopUpModal";
 
 const Navbaar = () => {
   const navigate = useNavigate();
-  const { Authenticated, setAuthenticated, user, setUser, loading } =
+  const { Authenticated, setAuthenticated, user, setUser, loading ,credits,setRefresh} =
     useContext(UserContext)
 
   const [showTopUpModal, setShowTopUpModal] = useState(false);
@@ -45,12 +45,12 @@ const Navbaar = () => {
       );
 
       toast.success(data.message);
-
+      
       setUser((prev) => ({
         ...prev,
         credits: (prev.credits || 0) + Number(topUpAmount),
       }));
-
+        setRefresh(true)
       setShowTopUpModal(false);
       setTopUpAmount("");
     } catch (error) {

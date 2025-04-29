@@ -25,7 +25,7 @@ function ProtectedRoute({ children }) {
 }
 
 function App() {
-  const { setUser, Authenticated, setAuthenticated, refresh } = useContext(UserContext);
+  const { setUser, Authenticated, setAuthenticated, refresh,setRefresh } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -49,6 +49,7 @@ function App() {
           setLoading(false);
         });
     };
+  
     fetchData();
   }, [Authenticated, refresh]);
 
