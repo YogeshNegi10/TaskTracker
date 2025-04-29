@@ -10,7 +10,7 @@ import TopUpModal from "./TopUpModal";
 const Navbaar = () => {
   const navigate = useNavigate();
   const { Authenticated, setAuthenticated, user, setUser, loading } =
-    useContext(UserContext);
+    useContext(UserContext)
 
   const [showTopUpModal, setShowTopUpModal] = useState(false);
   const [topUpAmount, setTopUpAmount] = useState("");
@@ -31,6 +31,8 @@ const Navbaar = () => {
 
   const handleTopUp = async () => {
     try {
+
+      setIsTopping(true);
       if (!topUpAmount || isNaN(topUpAmount) || Number(topUpAmount) <= 0) {
         toast.error("Please enter a valid amount.");
         return;
@@ -54,6 +56,8 @@ const Navbaar = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Top-up failed.");
+    }finally{
+      setIsTopping(false)
     }
   };
 
@@ -155,7 +159,7 @@ const Navbaar = () => {
                 onClick={() => setShowTopUpModal(true)}
                 className="ml-2 cursor-pointer bg-blue-500 hover:bg-blue-600 text-white text-xs px-2 py-1 rounded"
               >
-                Top-Up
+                {istopping ? "Topping UP..." : "Top-Up"}
               </button>
             </div>
           )}

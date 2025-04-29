@@ -39,13 +39,8 @@ const Projects = () => {
       }
     };
 
-    if (refresh) {
-      fetchProjects();
-      setRefresh(false);
-    } else {
-      fetchProjects();
-    }
-  }, [refresh, setRefresh, setLoading]);
+    fetchProjects();
+  }, [refresh, setLoading]);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -75,7 +70,7 @@ const Projects = () => {
       return toast.error("Please enter both title and description!");
     }
     try {
-      await axios.post(
+      const { data } = await axios.post(
         `${server}/api/v1/task/create-task`,
         {
           title,
@@ -86,7 +81,13 @@ const Projects = () => {
         { withCredentials: true }
       );
       toast.success("Task created!");
-      
+
+      setTasks((prev) => ({
+        ...prev,
+        [projectId]: [...(prev[projectId] || []), data.task],
+      }));
+
+
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Failed to create task");
@@ -100,13 +101,26 @@ const Projects = () => {
         { status: newStatus },
         { withCredentials: true }
       );
+  
       toast.success(`Task marked as ${newStatus}`);
-      setRefresh(true);
+  
+    
+      setTasks((prevTasks) => {
+        const updatedTasks = { ...prevTasks };
+        for (const projectId in updatedTasks) {
+          updatedTasks[projectId] = updatedTasks[projectId].map((task) =>
+            task._id === taskId ? { ...task, status: newStatus } : task
+          );
+        }
+        return updatedTasks;
+      });
+  
     } catch (error) {
       console.error(error);
       toast.error("Failed to update task status");
     }
   };
+  
 
   const handleDeleteTask = async (taskId) => {
     try {
@@ -115,7 +129,17 @@ const Projects = () => {
         { withCredentials: true }
       );
       toast.success("Task deleted");
-      setRefresh(true);
+
+    
+      setTasks((prev) => {
+        const newTasks = { ...prev };
+        for (const projectId in newTasks) {
+          newTasks[projectId] = newTasks[projectId].filter(
+            (task) => task._id !== taskId
+          );
+        }
+        return newTasks;
+      });
     } catch (error) {
       console.error(error);
       toast.error("Failed to delete task");
@@ -130,7 +154,14 @@ const Projects = () => {
         { withCredentials: true }
       );
       toast.success("Project deleted");
-      setRefresh(true);
+
+
+      setProjects((prev) => prev.filter((p) => p._id !== projectId));
+      setTasks((prev) => {
+        const newTasks = { ...prev };
+        delete newTasks[projectId];
+        return newTasks;
+      });
     } catch (error) {
       console.error(error);
       toast.error("Failed to delete project");
@@ -149,24 +180,36 @@ const Projects = () => {
 
   const handleUpdateTask = async (e) => {
     e.preventDefault();
-    const { _id, title, description } = currentTask;
+    const { _id, title, description, project } = currentTask;
+  
     if (!title.trim() || !description.trim()) {
       return toast.error("Title and description cannot be empty!");
     }
+  
     try {
-      await axios.put(
+      const { data } = await axios.put(
         `${server}/api/v1/task/update-task/${_id}`,
         { title, description },
         { withCredentials: true }
       );
+  
       toast.success("Task updated!");
       closeModal();
-      setRefresh(true);
+      
+      const projectId = typeof project === "string" ? project : project._id;
+  
+      setTasks((prev) => {
+        const updatedTasks = prev[projectId].map((t) =>
+          t._id === _id ? { ...t, title, description } : t
+        );
+        return { ...prev, [projectId]: updatedTasks };
+      });
     } catch (error) {
       console.error(error);
       toast.error("Failed to update task");
     }
   };
+  
 
   if (!Authenticated) return <Navigate to="/" />;
 
@@ -174,12 +217,12 @@ const Projects = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 p-8">
       <div className="max-w-5xl mx-auto space-y-10">
         {/* Create Project Component */}
-        <CreateProject />
+        <CreateProject setProjects={setProjects} />
 
         {/* Loading Indicator */}
         {loading ? (
           <div className="text-center flex flex-col gap-1 justify-center items-center text-xl font-medium text-gray-600 py-2">
-            <Spinner size={60}/>
+            <Spinner size={60} />
             Fetching Projects...
           </div>
         ) : (
@@ -199,12 +242,9 @@ const Projects = () => {
                 />
               ))
             ) : (
-
               <div className="text-center flex flex-col gap-1 justify-center items-center text-xl font-medium text-gray-600 py-2">
-          
-            No projects yet, create one!
-          </div>
-             
+                No projects yet, create one!
+              </div>
             )}
           </div>
         )}

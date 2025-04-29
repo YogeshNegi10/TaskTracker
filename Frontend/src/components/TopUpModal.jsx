@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const modalVariants = {
@@ -12,6 +12,7 @@ const modalVariants = {
 };
 
 const TopUpModal = ({ topUpAmount, setTopUpAmount, onClose, handleTopUp }) => {
+
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
