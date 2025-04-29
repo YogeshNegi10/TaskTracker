@@ -32,7 +32,7 @@ const Navbaar = () => {
   const handleTopUp = async () => {
     try {
 
-      setIsTopping(true);
+      
       if (!topUpAmount || isNaN(topUpAmount) || Number(topUpAmount) <= 0) {
         toast.error("Please enter a valid amount.");
         return;
@@ -57,7 +57,7 @@ const Navbaar = () => {
       console.log(error);
       toast.error(error.response?.data?.message || "Top-up failed.");
     }finally{
-      setIsTopping(false)
+     
     }
   };
 
