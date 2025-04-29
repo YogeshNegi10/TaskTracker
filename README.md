@@ -6,7 +6,7 @@ Key Features:
 ✅ User Authentication & Authorization – Secure login & registration with JWT-based authentication and Bcrypt used to hash Password. 
 ✅ Project Management – Users can add Project. 
 ✅ Task Management – Users can add task related to Project and can Update,delete,marked the task. 
-✅ Feature Added – Added topup user can buy credit to create more project. 
+✅ Feature Added – Added topup user can buy credit to create more project and Email otp verification. 
 ✅ RESTful APIs – Backend APIs handle task operations efficiently. 
 ✅ Error Handling – Proper backend validation and error responses for a smooth experience. 
 ✅ Routing – React Router ensures seamless navigation between different pages. 
