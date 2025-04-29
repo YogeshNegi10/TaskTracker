@@ -29,7 +29,15 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 4, // By default, a new user will have 4 credits
     min: [0, "Credits cannot be negative."]
-  }
+  },
+  otp: {
+    type: String,
+    default: "",
+  },
+  otpExpiresAt: {
+    type: Date,
+    default: null,
+  },
 }, {
   timestamps: true, 
 });
