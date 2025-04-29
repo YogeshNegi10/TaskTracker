@@ -44,7 +44,6 @@ const Navbaar = () => {
 
       toast.success(data.message);
 
-      // Update local user state
       setUser((prev) => ({
         ...prev,
         credits: (prev.credits || 0) + Number(topUpAmount),

@@ -32,6 +32,7 @@ const {setRefresh} = useContext(UserContext)
         toast.error(error.response?.data?.message || "Failed to create project");
       }
     };
+    
   return (
     <>
       <div className="bg-white rounded-xl shadow-lg p-8">
