@@ -1,16 +1,23 @@
 Live Demo At - https://task-tracker-navy-xi.vercel.app
 
-Task Tracker App - MERN Stack The Task Manager App is a full-stack web application built using the MERN stack (MongoDB, Express.js, React.js, Node.js). It allows users to efficiently manage their tasks with full CRUD (Create, Read, Update, Delete) operations, ensuring a seamless and interactive experience.
+✅ **Task Tracker App – Project Highlights (MERN Stack)**
 
-Key Features:
-✅ User Authentication & Authorization – Secure login & registration with JWT-based authentication and Bcrypt used to hash Password. 
-✅ Project Management – Users can add Project. 
-✅ Task Management – Users can add task related to Project and can Update,delete,marked the task. 
-✅ Feature Added – Added topup user can buy credit to create more project and Email otp verification. 
-✅ RESTful APIs – Backend APIs handle task operations efficiently. 
-✅ Error Handling – Proper backend validation and error responses for a smooth experience. 
-✅ Routing – React Router ensures seamless navigation between different pages. 
-✅ Tailwind CSS – A clean and responsive UI with Tailwind CSS for a modern look. 
-✅ Protected Routes – Ensures only authenticated users can access task management features.
+⚙️ Built a full-stack task management application using MongoDB, Express.js, React.js, and Node.js, enabling seamless task and project organization.
 
-This Task Tracker App provides a user-friendly and efficient way to organize tasks while maintaining security and performance. 🚀
+🔐 Implemented secure user authentication and authorization using JWT tokens and bcrypt for password hashing.
+
+🗂️ Enabled full CRUD operations for projects and tasks, including create, update, delete, and mark-as-complete functionality.
+
+📊 Introduced project-based task grouping, improving task clarity and project-level organization for users.
+
+💳 Added credit top-up functionality, allowing users to purchase credits to create additional projects.
+
+✉️ Integrated OTP-based email verification, enhancing account security during user registration.
+
+🔌 Developed RESTful APIs to manage task and user operations efficiently with proper validation and error handling.
+
+🔄 Protected application routes to restrict access to authenticated users using middleware in both frontend and backend.
+
+🌐 Used React Router for smooth client-side routing and user navigation.
+
+🎨 Designed a clean, responsive UI with Tailwind CSS, ensuring optimal experience across devices.
